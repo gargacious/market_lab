@@ -1,3 +1,17 @@
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - development source backup2026-10-17
+
+Bitbucket independently confirms integration91f4975b and its five changed
+providers on codex/workspace-backup-20261017. The parent feature indexes that
+exact integration commit with selection_kind=development_backup, preserving
+published baseline8b13352f. All45 nested component selections remain owned by
+integration. No master, child checkout, private input or tool installation moves.
+
+The settled integration source-only first pass passes candidate105170a4;
+retained evidence/full qualification/full-suite/nativeMac remain pending.
+Required committed source and existing retained reports travel with Git.
+Ignored advisory records, caches/environments, private inputs, credentials and
+uncommitted work remain outside this source backup and are not deleted.
+
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - explicit development backup selection
 
 Add optional exact selected_commit and published/development_backup kind, with

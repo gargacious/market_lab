@@ -6,12 +6,15 @@ plans and qualification. Existing development checkouts can deliberately be
 ahead of this published selection; status reports that difference without
 changing them.
 
-Origin is configured as git@bitbucket.org:gargacious/market_lab.git. The initial bootstrap feature was published at4047db63 to the corrected
-underscore-named remote. This records that committed bootstrap source only;
-new development selections and ignored work are not thereby backed up.
+Origin is git@bitbucket.org:gargacious/market_lab.git. The parent feature
+codex/workspace-bootstrap-20261017 selects integration91f4975b as a development
+backup. Integration and its five changed providers are independently backed up
+on codex/workspace-backup-20261017 in their own Bitbucket repositories. The
+published integration baseline remains8b13352f; no master is advanced.
+This source snapshot is not full Linux qualification or native Mac acceptance.
 For a NEW checkout only, after repository access and publication are confirmed:
 
-    git clone --recurse-submodules git@bitbucket.org:gargacious/market_lab.git market_lab
+    git clone --branch codex/workspace-bootstrap-20261017 --recurse-submodules git@bitbucket.org:gargacious/market_lab.git market_lab
     cd market_lab
     python3 -B tooling/bootstrap.py status
     python3 -B tooling/bootstrap.py check
@@ -19,7 +22,7 @@ For a NEW checkout only, after repository access and publication are confirmed:
     python3 -B tooling/bootstrap.py plan --tool iverilog
 
 Do not run submodule update in an existing development workspace merely to
-satisfy this older published pointer. Inspect status and preserve work first.
+satisfy an indexed snapshot pointer. Inspect status and preserve work first.
 The parent never moves or absorbs the child's existing .git directory.
 
 Setup is explicit: install --tool conan --execute creates the pinned isolated
