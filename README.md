@@ -6,9 +6,11 @@ plans and qualification. Existing development checkouts can deliberately be
 ahead of this published selection; status reports that difference without
 changing them.
 
-For a NEW checkout only, after the user supplies this parent's remote URL:
+Origin is configured as git@bitbucket.org:gargacious/market-lab.git. The remote
+is currently unavailable or inaccessible; its first source backup is pending.
+For a NEW checkout only, after repository access and publication are confirmed:
 
-    git clone --recurse-submodules <workspace-remote> market_lab
+    git clone --recurse-submodules git@bitbucket.org:gargacious/market-lab.git market_lab
     cd market_lab
     python3 -B tooling/bootstrap.py status
     python3 -B tooling/bootstrap.py check
@@ -46,7 +48,9 @@ workspace drive (D: on Windows):
     python3 -B tooling/tests/bootstrap_tests.py --scratch <workspace-scratch>
 
 No build, retained evidence, publication or actual tool installation is part of
-these fixtures. The workspace remote is intentionally unset until supplied.
+these fixtures. Configuring origin does not publish or back up any source.
+The parent has not been pushed; ignored work and unpublished child commits
+retain the separate backup limits above.
 
 
 Status/check inspect source selection and path availability only; selected tool
