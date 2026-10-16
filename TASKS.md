@@ -14,8 +14,8 @@ and is skipped on Windows without native link privileges. Conan cache path is
 selected from actual directory metadata as tooling/conan-home-2.31.2; profiles
 and credentials were not opened. Only affected plan fixtures are repeated for
 that path correction. No actual tool installs, child updates, retained evidence,
-qualification or remote publication. Origin is configured as git@bitbucket.org:gargacious/market-lab.git; remote
-access and first publication/backup remain pending.
+qualification or remote publication. Origin is configured as git@bitbucket.org:gargacious/market_lab.git; remote
+access is confirmed, while first publication/backup remains pending.
 
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - exact historical source retention
 
@@ -34,6 +34,7 @@ sources and source-only tests. Existing child development HEAD and .git stay
 unchanged. Existing local tool installation, venv, caches, artifacts, private
 inputs, credentials and worktrees stay intact and ignored. No actual tool
 installation, child update, qualification, master promotion or remote push.
-The user selected git@bitbucket.org:gargacious/market-lab.git; origin is
-configured, but the repository is currently unavailable or inaccessible. No
-first remote backup or recovery of ignored/unpublished work is claimed.
+The user selected git@bitbucket.org:gargacious/market_lab.git; origin is
+configured and read access is confirmed to the empty repository. The earlier
+hyphen-named URL was incorrect. No first remote backup or recovery of
+ignored/unpublished work is claimed.

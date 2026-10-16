@@ -6,11 +6,11 @@ plans and qualification. Existing development checkouts can deliberately be
 ahead of this published selection; status reports that difference without
 changing them.
 
-Origin is configured as git@bitbucket.org:gargacious/market-lab.git. The remote
-is currently unavailable or inaccessible; its first source backup is pending.
+Origin is configured as git@bitbucket.org:gargacious/market_lab.git. The corrected underscore-named remote is reachable and currently empty; its
+first source backup is pending.
 For a NEW checkout only, after repository access and publication are confirmed:
 
-    git clone --recurse-submodules git@bitbucket.org:gargacious/market-lab.git market_lab
+    git clone --recurse-submodules git@bitbucket.org:gargacious/market_lab.git market_lab
     cd market_lab
     python3 -B tooling/bootstrap.py status
     python3 -B tooling/bootstrap.py check
