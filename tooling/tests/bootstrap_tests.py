@@ -145,6 +145,44 @@ class BootstrapTests(unittest.TestCase):
                 module.main()
 
 
+    def test_uninitialized_child_cannot_inherit_parent_head(self) -> None:
+        self.init_git(self.root)
+        git(self.root, "add", *sorted(bootstrap.TRACKED_FILES - {"market-integration"}))
+        git(self.root, "commit", "-m", "fixture parent only")
+        (self.root / "market-integration").mkdir()
+        result = bootstrap.status(self.root, bootstrap.load_lock(self.root))
+        self.assertEqual(result["integration"]["initialization"], "uninitialized")
+        self.assertIsNone(result["integration"]["actual_head"])
+        self.assertEqual(result["integration"]["dirty_entry_count"], 0)
+        self.assertEqual(result["integration"]["selected_component_submodules"], 0)
+
+    def test_icarus_mutating_child_symlink_escapes_deny_before_execution(self) -> None:
+        path = self.root / "tools/iverilog/bootstrap.py"
+        spec = importlib.util.spec_from_file_location("workspace_iverilog_escape_fixture", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        outside = Path(self.directory.name) / "outside"
+        outside.mkdir()
+        marker = outside / "preserve"
+        marker.write_bytes(b"unchanged")
+        for suffix in ("source", "build-dependencies", "build-dependencies/root", "installed"):
+            target = self.root / "tools/iverilog-13.0" / suffix
+            target.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                target.symlink_to(outside, target_is_directory=True)
+            except OSError as error:
+                self.skipTest("native directory symlink privilege unavailable: " + str(error))
+            try:
+                with mock.patch.object(sys, "argv", [str(path), "--root", str(self.root), "--execute"]),                      mock.patch.object(sys, "platform", "linux"),                      mock.patch.object(module.subprocess, "run", side_effect=AssertionError("unexpected mutation")):
+                    with self.assertRaisesRegex(ValueError, "outside its owned root"):
+                        module.main()
+                self.assertEqual(marker.read_bytes(), b"unchanged")
+            finally:
+                target.unlink()
+            if suffix == "build-dependencies/root":
+                target.parent.rmdir()
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scratch", type=Path, required=True)

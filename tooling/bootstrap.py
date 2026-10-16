@@ -85,7 +85,9 @@ def tool_status(root: Path, lock: dict) -> dict:
 def status(root: Path, lock: dict) -> dict:
     selected = lock["integration"]
     child = safe_path(root, selected["path"])
-    child_head = git(child, "rev-parse", "HEAD") if child.is_dir() else None
+    actual_root = git(child, "rev-parse", "--show-toplevel") if child.is_dir() else None
+    child_initialized = actual_root is not None and Path(actual_root).resolve() == child.resolve()
+    child_head = git(child, "rev-parse", "HEAD") if child_initialized else None
     child_dirty = git(child, "status", "--porcelain=v1", "--untracked-files=all", "--ignore-submodules=all") if child_head else None
     child_links = git(child, "ls-tree", "-r", "HEAD") if child_head else None
     indexed = git(root, "ls-files", "--stage", "--", selected["path"])
@@ -106,6 +108,7 @@ def status(root: Path, lock: dict) -> dict:
         "unexpected_tracked_paths": sorted(tracked - TRACKED_FILES),
         "missing_setup_sources": missing,
         "integration": {
+            "initialization": "initialized" if child_initialized else ("uninitialized" if child.is_dir() else "absent"),
             "published_commit": selected["published_commit"],
             "indexed_commit": indexed_commit,
             "actual_head": child_head,

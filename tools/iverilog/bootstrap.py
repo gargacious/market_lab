@@ -19,14 +19,15 @@ def main() -> int:
     from tooling.bootstrap import load_lock, safe_path
     config = load_lock(root)["tools"]["iverilog"]
     directory = safe_path(root, config["root"])
-    source = directory / "source"
-    dependencies = directory / "build-dependencies"
-    extracted = dependencies / "root"
+    source = safe_path(root, config["root"] + "/source")
+    dependencies = safe_path(root, config["root"] + "/build-dependencies")
+    extracted = safe_path(root, config["root"] + "/build-dependencies/root")
+    installed = safe_path(root, config["root"] + "/installed")
     commands = [
         ["git", "clone", "--depth", "1", "--branch", config["source_tag"], config["source_url"], str(source)],
         ["apt-get", "download", *config["build_packages"]],
         ["sh", "autoconf.sh"],
-        ["./configure", "--prefix=" + str(directory / "installed")],
+        ["./configure", "--prefix=" + str(installed)],
         ["make", "-j2"], ["make", "install"],
     ]
     if not args.execute:
