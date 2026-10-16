@@ -19,3 +19,7 @@
 !/tools/iverilog/
 /tools/iverilog/*
 !/tools/iverilog/bootstrap.py
+!/tools/iverilog-13.0/
+/tools/iverilog-13.0/*
+!/tools/iverilog-13.0/install.py
+!/tools/iverilog-13.0/README.txt

@@ -14,7 +14,7 @@ TRACKED_FILES = frozenset({
     ".gitignore", ".gitattributes", ".gitmodules", "AGENTS.md", "README.md", "TASKS.md",
     "tooling/__init__.py", "tooling/bootstrap.py", "tooling/tool-lock.json",
     "tooling/tests/bootstrap_tests.py", "tools/iverilog/bootstrap.py",
-    "market-integration",
+    "market-integration", "tools/iverilog-13.0/install.py", "tools/iverilog-13.0/README.txt",
 })
 
 

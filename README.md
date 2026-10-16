@@ -22,9 +22,10 @@ The parent never moves or absorbs the child's existing .git directory.
 Setup is explicit: install --tool conan --execute creates the pinned isolated
 Conan environment; install --tool iverilog --execute builds the exact official
 Icarus13 source on supported Debian/Ubuntu Linux without sudo. These commands
-are not run by status/check/plan. Existing tools/iverilog-13.0/install.py and its
-installation remain local historical material; tools/iverilog/bootstrap.py is
-the new relocatable source-controlled installer. Generated tools, source clones,
+are not run by status/check/plan. Exact original tools/iverilog-13.0/install.py and README.txt are retained as
+source-controlled historical references, including the old host-specific path.
+The existing installation stays local; tools/iverilog/bootstrap.py is the
+recommended relocatable source-controlled installer. Generated tools, source clones,
 apt archives, venvs, Conan home/cache, artifacts, tmp and worktrees are ignored.
 No credentials or profiles are embedded or copied.
 

@@ -110,11 +110,14 @@ class BootstrapTests(unittest.TestCase):
         self.init_git(self.root)
         for name in ("artifacts/report.json", "tmp/output", "worktrees/copy/file",
                      "tooling/conan-home/cache/file", "tools/iverilog-13.0/installed/bin/iverilog",
-                     "private-profile", "tools/iverilog-13.0/install.py"):
+                     "private-profile", "tools/iverilog-13.0/source/generated-file"):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"fixture")
             git(self.root, "check-ignore", "--", name)
+        for name in ("tools/iverilog-13.0/install.py", "tools/iverilog-13.0/README.txt"):
+            result = subprocess.run(["git", "-c", "safe.directory=" + str(self.root), "-C", str(self.root), "check-ignore", "-q", "--", name], check=False)
+            self.assertEqual(result.returncode, 1)
         (self.root / "foreign.txt").write_bytes(b"fixture")
         git(self.root, "add", "-f", "foreign.txt")
         result = bootstrap.status(self.root, bootstrap.load_lock(self.root))
@@ -128,7 +131,8 @@ class BootstrapTests(unittest.TestCase):
         observed = json.loads(result.stdout)
         self.assertFalse(observed["executed"])
         self.assertEqual(observed["source_commit"], "dfeee909ed9f20b4870dd93423156c0170c0e1ff")
-        self.assertFalse((self.root / "tools/iverilog-13.0").exists())
+        self.assertFalse((self.root / "tools/iverilog-13.0/installed").exists())
+        self.assertFalse((self.root / "tools/iverilog-13.0/source").exists())
 
     def test_icarus_wrong_existing_source_never_builds(self) -> None:
         path = self.root / "tools/iverilog/bootstrap.py"
