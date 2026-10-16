@@ -47,3 +47,15 @@ workspace drive (D: on Windows):
 
 No build, retained evidence, publication or actual tool installation is part of
 these fixtures. The workspace remote is intentionally unset until supplied.
+
+
+Status/check inspect source selection and path availability only; selected tool
+versions are lock declarations, not a fresh binary or platform qualification.
+For Linux shells after an explicit successful setup, select the existing
+versioned Conan home and local tools without copying private profiles:
+
+    export CONAN_HOME="$PWD/tooling/conan-home-2.31.2"
+    export PATH="$PWD/tooling/conan-2.31.2/bin:$PWD/tools/iverilog-13.0/installed/bin:$PATH"
+
+The Conan cache/profile directory remains private and ignored. On Windows,
+the isolated Conan executable directory is tooling/conan-2.31.2/Scripts.

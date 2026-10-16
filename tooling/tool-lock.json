@@ -24,7 +24,7 @@
     "conan": {
       "version": "2.31.2",
       "venv": "tooling/conan-2.31.2",
-      "home": "tooling/conan-home"
+      "home": "tooling/conan-home-2.31.2"
     }
   }
 }

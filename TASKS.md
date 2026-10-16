@@ -1,3 +1,21 @@
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - bounded source bootstrap complete
+
+Linux outer workspace is initialized with exactly14 reviewed source/gitlink
+entries. Last-published integration8b13352f remains the indexed pointer while
+the existing development child and its original .git directory remain intact.
+Original Icarus install.py/README.txt match source-controlled bytes without
+rewriting their Linux inode or mtime. Source/tool caches, binaries, Conan venv
+and versioned home, artifacts, tmp, worktrees and credentials remain ignored.
+
+Eight original Windows/Linux fixture methods passed. Two changed legacy
+allowlist/plan cases passed on Windows and Linux. New empty-child inheritance
+denial passes on both; actual four-path symlink escape denial passes on Linux
+and is skipped on Windows without native link privileges. Conan cache path is
+selected from actual directory metadata as tooling/conan-home-2.31.2; profiles
+and credentials were not opened. Only affected plan fixtures are repeated for
+that path correction. No actual tool installs, child updates, retained evidence,
+qualification or remote publication. Parent origin awaits the user's exact URL.
+
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - exact historical source retention
 
 Retain the original976-byte Icarus installer and330-byte README unchanged in

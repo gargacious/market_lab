@@ -48,6 +48,7 @@ class BootstrapTests(unittest.TestCase):
         lock = bootstrap.load_lock(self.root)
         plan = bootstrap.plan(self.root, lock, "conan")
         self.assertEqual(plan[1][-1], "conan==2.31.2")
+        self.assertEqual(lock["tools"]["conan"]["home"], "tooling/conan-home-2.31.2")
         self.assertIn(str(self.root), plan[0][-1])
         self.assertEqual(lock["tools"]["iverilog"]["source_commit"], "dfeee909ed9f20b4870dd93423156c0170c0e1ff")
         self.assertFalse((self.root / "tooling/conan-2.31.2").exists())
