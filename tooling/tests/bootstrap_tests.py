@@ -63,7 +63,13 @@ class BootstrapTests(unittest.TestCase):
         before = sorted(str(path.relative_to(self.root)) for path in self.root.rglob("*"))
         with mock.patch.object(bootstrap.subprocess, "run", side_effect=AssertionError("unexpected execution")):
             for tool in ("conan", "iverilog"):
-                self.assertFalse(bootstrap.install(self.root, lock, tool, False)["executed"])
+                result = bootstrap.install(self.root, lock, tool, False)
+                self.assertFalse(result["executed"])
+                if tool == "conan":
+                    self.assertEqual(result["environment"]["PIP_CACHE_DIR"], str(self.root / "tooling/pip-cache"))
+                    self.assertEqual(result["environment"]["CONAN_HOME"], str(self.root / "tooling/conan-home-2.31.2"))
+                    for name in ("TEMP", "TMP", "TMPDIR"):
+                        self.assertEqual(result["environment"][name], str(self.root / "tmp/tool-bootstrap"))
         self.assertEqual(before, sorted(str(path.relative_to(self.root)) for path in self.root.rglob("*")))
 
     def test_existing_foreign_environment_is_preserved(self) -> None:
@@ -182,6 +188,22 @@ class BootstrapTests(unittest.TestCase):
                 target.unlink()
             if suffix == "build-dependencies/root":
                 target.parent.rmdir()
+
+
+    def test_conan_execution_selects_owned_caches_and_temporaries(self) -> None:
+        lock = bootstrap.load_lock(self.root)
+        with mock.patch.object(bootstrap.subprocess, "run") as run:
+            result = bootstrap.install(self.root, lock, "conan", True)
+        self.assertTrue(result["executed"])
+        self.assertEqual(run.call_count, 2)
+        for call in run.call_args_list:
+            environment = call.kwargs["env"]
+            self.assertEqual(environment["CONAN_HOME"], str(self.root / "tooling/conan-home-2.31.2"))
+            self.assertEqual(environment["PIP_CACHE_DIR"], str(self.root / "tooling/pip-cache"))
+            for name in ("TEMP", "TMP", "TMPDIR"):
+                self.assertEqual(environment[name], str(self.root / "tmp/tool-bootstrap"))
+        for value in result["environment"].values():
+            self.assertTrue(Path(value).is_dir())
 
 
 if __name__ == "__main__":

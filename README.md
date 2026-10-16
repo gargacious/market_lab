@@ -59,3 +59,11 @@ versioned Conan home and local tools without copying private profiles:
 
 The Conan cache/profile directory remains private and ignored. On Windows,
 the isolated Conan executable directory is tooling/conan-2.31.2/Scripts.
+
+
+Conan plan output includes only its selected workspace environment, without
+exposing inherited variables. Explicit install passes PIP_CACHE_DIR under
+tooling/pip-cache, CONAN_HOME at tooling/conan-home-2.31.2 and all of TEMP/TMP/
+TMPDIR under tmp/tool-bootstrap to both venv/pip subprocesses. These directories
+are created only with --execute. Planning creates none. This keeps future
+Windows project downloads and temporary build material on the workspace drive.

@@ -132,20 +132,31 @@ def plan(root: Path, lock: dict, tool: str) -> list[list[str]]:
     return [[sys.executable, "-B", str(root / "tools/iverilog/bootstrap.py"), "--root", str(root), "--execute"]]
 
 
+def conan_environment(root: Path, lock: dict) -> dict[str, str]:
+    temporary = str(safe_path(root, "tmp/tool-bootstrap"))
+    return {"PIP_CACHE_DIR": str(safe_path(root, "tooling/pip-cache")),
+            "CONAN_HOME": str(safe_path(root, lock["tools"]["conan"]["home"])),
+            "TMP": temporary, "TEMP": temporary, "TMPDIR": temporary}
+
+
 def install(root: Path, lock: dict, tool: str, execute: bool) -> dict:
     commands = plan(root, lock, tool)
+    selected_environment = conan_environment(root, lock) if tool == "conan" else {}
     if not execute:
-        return {"executed": False, "tool": tool, "commands": commands}
+        return {"executed": False, "tool": tool, "commands": commands, "environment": selected_environment}
     if tool == "conan":
         venv = safe_path(root, lock["tools"]["conan"]["venv"])
         if venv.exists() and not python_in(venv).is_file():
             raise ValueError("existing tool directory is not a recognized venv; preserve it")
+        for path in set(selected_environment.values()):
+            Path(path).mkdir(parents=True, exist_ok=True)
+        environment = {**os.environ, **selected_environment}
         if not venv.exists():
-            subprocess.run(commands[0], check=True)
-        subprocess.run(commands[1], check=True)
+            subprocess.run(commands[0], check=True, env=environment)
+        subprocess.run(commands[1], check=True, env=environment)
     else:
         subprocess.run(commands[0], check=True)
-    return {"executed": True, "tool": tool}
+    return {"executed": True, "tool": tool, "environment": selected_environment}
 
 
 def main() -> int:
