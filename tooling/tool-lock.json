@@ -1,0 +1,30 @@
+{
+  "format": "market-lab-workspace-bootstrap-v1",
+  "integration": {
+    "path": "market-integration",
+    "url": "git@bitbucket.org:gargacious/market-integration.git",
+    "published_commit": "8b13352f3f98c9010315348ea9e5698b53d75c8f"
+  },
+  "tools": {
+    "iverilog": {
+      "version": "13.0",
+      "source_url": "https://github.com/steveicarus/iverilog.git",
+      "source_tag": "v13_0",
+      "source_commit": "dfeee909ed9f20b4870dd93423156c0170c0e1ff",
+      "root": "tools/iverilog-13.0",
+      "build_packages": [
+        "bison",
+        "flex",
+        "gperf",
+        "m4",
+        "libfl2",
+        "libfl-dev"
+      ]
+    },
+    "conan": {
+      "version": "2.31.2",
+      "venv": "tooling/conan-2.31.2",
+      "home": "tooling/conan-home"
+    }
+  }
+}

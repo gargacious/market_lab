@@ -1,0 +1,3 @@
+[submodule "market-integration"]
+	path = market-integration
+	url = git@bitbucket.org:gargacious/market-integration.git
