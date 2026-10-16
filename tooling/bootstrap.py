@@ -30,13 +30,34 @@ def safe_path(root: Path, name: str) -> Path:
     return path
 
 
+def integration_selection(integration: dict) -> tuple[str, str, str]:
+    """Resolve legacy published pins or an explicitly declared development pin.
+
+    This is local metadata validation, never proof of remote backup/publication.
+    """
+    published = integration.get("published_commit")
+    selected = integration.get("selected_commit", published)
+    kind = integration.get("selection_kind", "published")
+    if any(not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{40}", value) is None
+           for value in (published, selected)):
+        raise ValueError("integration commits must be exact lowercase Git identities")
+    if kind not in ("published", "development_backup"):
+        raise ValueError("unsupported integration selection kind")
+    if kind == "published" and selected != published:
+        raise ValueError("published selection differs from the published baseline")
+    if kind == "development_backup" and "selected_commit" not in integration:
+        raise ValueError("development backup requires an explicit selected commit")
+    return published, selected, kind
+
+
 def load_lock(root: Path) -> dict:
     lock = json.loads((root / "tooling/tool-lock.json").read_bytes())
     if lock.get("format") != "market-lab-workspace-bootstrap-v1":
         raise ValueError("unsupported workspace lock")
     integration = lock["integration"]
-    if integration["path"] != "market-integration" or not re.fullmatch(r"[0-9a-f]{40}", integration["published_commit"]):
+    if integration["path"] != "market-integration":
         raise ValueError("invalid integration selection")
+    integration_selection(integration)
     if integration["url"] != "git@bitbucket.org:gargacious/market-integration.git":
         raise ValueError("integration URL differs from the reviewed repository")
     tools = lock["tools"]
@@ -84,6 +105,7 @@ def tool_status(root: Path, lock: dict) -> dict:
 
 def status(root: Path, lock: dict) -> dict:
     selected = lock["integration"]
+    published_commit, selected_commit, selection_kind = integration_selection(selected)
     child = safe_path(root, selected["path"])
     actual_root = git(child, "rev-parse", "--show-toplevel") if child.is_dir() else None
     child_initialized = actual_root is not None and Path(actual_root).resolve() == child.resolve()
@@ -109,10 +131,13 @@ def status(root: Path, lock: dict) -> dict:
         "missing_setup_sources": missing,
         "integration": {
             "initialization": "initialized" if child_initialized else ("uninitialized" if child.is_dir() else "absent"),
-            "published_commit": selected["published_commit"],
+            "published_commit": published_commit,
+            "selected_commit": selected_commit,
+            "selection_kind": selection_kind,
             "indexed_commit": indexed_commit,
             "actual_head": child_head,
-            "development_differs_from_published": child_head is not None and child_head != selected["published_commit"],
+            "development_differs_from_published": child_head is not None and child_head != published_commit,
+            "checkout_differs_from_selected": child_head is not None and child_head != selected_commit,
             "dirty_entry_count": len(child_dirty.splitlines()) if child_dirty else 0,
             "selected_component_submodules": sum(line.startswith("160000 ") for line in (child_links or "").splitlines()),
             "checkout_changed": False,
@@ -178,7 +203,7 @@ def main() -> int:
     else:
         result = status(root, lock)
         if args.command == "check":
-            result["passed"] = not result["unexpected_tracked_paths"] and not result["missing_setup_sources"] and result["integration"]["indexed_commit"] == lock["integration"]["published_commit"]
+            result["passed"] = not result["unexpected_tracked_paths"] and not result["missing_setup_sources"] and result["integration"]["indexed_commit"] == result["integration"]["selected_commit"]
     print(json.dumps(result, indent=2))
     return 0 if result.get("passed", True) else 1
 

@@ -91,6 +91,7 @@ class BootstrapTests(unittest.TestCase):
         git(child, "add", "source.txt")
         git(child, "commit", "-m", "fixture published")
         published = git(child, "rev-parse", "HEAD")
+        git(child, "branch", "master", published)
         (child / "source.txt").write_text("development", encoding="utf-8")
         git(child, "commit", "-am", "fixture development")
         development = git(child, "rev-parse", "HEAD")
@@ -112,6 +113,52 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual((child / ".git").resolve(), git_directory)
         self.assertTrue((child / ".git").is_dir())
         self.assertEqual((child / "source.txt").read_text(), "uncommitted")
+        self.assertEqual(result["integration"]["selected_commit"], published)
+        self.assertEqual(result["integration"]["selection_kind"], "published")
+        lock["integration"].update(selected_commit=development, selection_kind="development_backup")
+        lock_path = self.root / "tooling/tool-lock.json"
+        lock_path.write_text(json.dumps(lock), encoding="utf-8")
+        git(self.root, "update-index", "--cacheinfo", "160000," + development + ",market-integration")
+        command = [sys.executable, "-B", str(self.root / "tooling/bootstrap.py"),
+                   "--root", str(self.root), "check"]
+        checked = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                 text=True, check=False)
+        self.assertEqual(checked.returncode, 0, checked.stderr)
+        result = json.loads(checked.stdout)
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["integration"]["published_commit"], published)
+        self.assertEqual(result["integration"]["selected_commit"], development)
+        self.assertEqual(result["integration"]["selection_kind"], "development_backup")
+        self.assertFalse(result["integration"]["checkout_differs_from_selected"])
+        self.assertFalse(result["remote_publication_verified"])
+        self.assertFalse(result["integration"]["checkout_changed"])
+        # A mismatched parent index denies without moving/relabeling the child.
+        git(self.root, "update-index", "--cacheinfo", "160000," + published + ",market-integration")
+        rejected = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                  text=True, check=False)
+        self.assertEqual(rejected.returncode, 1)
+        self.assertFalse(json.loads(rejected.stdout)["passed"])
+        self.assertEqual(git(child, "rev-parse", "master"), published)
+        self.assertEqual(git(child, "rev-parse", "HEAD"), development)
+        self.assertEqual((child / ".git").resolve(), git_directory)
+        self.assertTrue((child / ".git").is_dir())
+        self.assertEqual((child / "source.txt").read_text(), "uncommitted")
+        for invalid in (
+            {"selected_commit": "not-a-commit", "selection_kind": "development_backup"},
+            {"selected_commit": development, "selection_kind": "published"},
+            {"selected_commit": development, "selection_kind": "qualified"},
+            {"selection_kind": "development_backup"},
+            {"selected_commit": True},
+        ):
+            with self.subTest(invalid=invalid):
+                candidate = json.loads(json.dumps(lock))
+                candidate["integration"].pop("selected_commit", None)
+                candidate["integration"].pop("selection_kind", None)
+                candidate["integration"].update(invalid)
+                lock_path.write_text(json.dumps(candidate), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    bootstrap.load_lock(self.root)
+        lock_path.write_text(json.dumps(lock), encoding="utf-8")
 
     def test_allowlist_ignores_generated_and_detects_foreign_tracked_path(self) -> None:
         self.init_git(self.root)

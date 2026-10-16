@@ -1,3 +1,16 @@
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - explicit development backup selection
+
+Add optional exact selected_commit and published/development_backup kind, with
+legacy published defaults. Published baseline remains independently identified;
+offline checks compare the selected parent index and never verify remotes or
+move a child checkout. The existing dirty-child fixture covers distinct selected
+development/published/master identities, parent-index mismatch and invalid claim
+denials while preserving the child .git, HEAD and uncommitted bytes.
+This change leaves the actual lock and parent gitlink unchanged. The parent
+will select backed-up development only after separate remote verification.
+The affected dirty-child fixture passes on Windows with D-local scratch. Linux
+source-only acceptance follows this source commit; no install or qualification.
+
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - bounded source bootstrap complete
 
 Linux outer workspace is initialized with exactly14 reviewed source/gitlink
@@ -15,7 +28,8 @@ selected from actual directory metadata as tooling/conan-home-2.31.2; profiles
 and credentials were not opened. Only affected plan fixtures are repeated for
 that path correction. No actual tool installs, child updates, retained evidence,
 qualification or remote publication. Origin is configured as git@bitbucket.org:gargacious/market_lab.git; remote
-access is confirmed, while first publication/backup remains pending.
+access is confirmed. Initial committed bootstrap feature4047db63 was published;
+ignored/uncommitted work and later development backup remain separately pending.
 
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - exact historical source retention
 
@@ -35,6 +49,6 @@ unchanged. Existing local tool installation, venv, caches, artifacts, private
 inputs, credentials and worktrees stay intact and ignored. No actual tool
 installation, child update, qualification, master promotion or remote push.
 The user selected git@bitbucket.org:gargacious/market_lab.git; origin is
-configured and read access is confirmed to the empty repository. The earlier
-hyphen-named URL was incorrect. No first remote backup or recovery of
-ignored/unpublished work is claimed.
+configured and read access is confirmed. Initial bootstrap feature4047db63 is
+published. The earlier hyphen-named URL was incorrect. No recovery or backup of
+ignored/uncommitted work or later unpublished development is claimed.
