@@ -8,8 +8,10 @@ development/published/master identities, parent-index mismatch and invalid claim
 denials while preserving the child .git, HEAD and uncommitted bytes.
 This change leaves the actual lock and parent gitlink unchanged. The parent
 will select backed-up development only after separate remote verification.
-The affected dirty-child fixture passes on Windows with D-local scratch. Linux
-source-only acceptance follows this source commit; no install or qualification.
+The affected dirty-child fixture passes on Windows with D-local scratch and on
+Linux with isolated workspace fixtures. Source-only sync preserved the actual
+child HEAD/.git inode, lock bytes and parent indexed gitlink. No tool install,
+qualification, child movement or new remote-backup claim.
 
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - bounded source bootstrap complete
 
