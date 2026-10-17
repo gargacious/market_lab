@@ -19,9 +19,14 @@ Three independently versioned child repositories are registered:
 
 | Path | Repository | Selected commit |
 | --- | --- | --- |
-| `market-integration` | `gargacious/market-integration` | `77dad77f` |
-| `protocol_lab` | `gargacious/protocol_lab` | `45c6f10` |
-| `market_games` | `gargacious/market_lab_games` | `4e5fef5` |
+| `market-integration` | [Bitbucket](https://bitbucket.org/gargacious/market-integration/src/master/) / [GitHub](https://github.com/gargacious/market-integration/tree/master) | `77dad77f` |
+| `protocol_lab` | [Bitbucket](https://bitbucket.org/gargacious/protocol_lab/src/master/) / [GitHub](https://github.com/gargacious/protocol_lab/tree/master) | `45c6f10` |
+| `market_games` | [Bitbucket](https://bitbucket.org/gargacious/market_lab_games/src/master/) / [GitHub](https://github.com/gargacious/market_lab_games/tree/master) | `4e5fef5` |
+
+All `.gitmodules` URLs are relative, so clones use the same host as the parent.
+Bitbucket may show relative submodules as plain text in its source browser; use
+the explicit repository links above. This is a web-view limitation, not a clone
+failure. See https://jira.atlassian.com/browse/BCLOUD-12521.
 
 Children are intentionally not initialized by this consolidation. In a NEW
 checkout, initialize only the child you need; recursive integration checkout

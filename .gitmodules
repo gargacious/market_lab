@@ -1,6 +1,6 @@
 [submodule "market-integration"]
 	path = market-integration
-	url = git@bitbucket.org:gargacious/market-integration.git
+	url = ../market-integration.git
 
 [submodule "protocol_lab"]
 	path = protocol_lab

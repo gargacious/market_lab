@@ -1,3 +1,11 @@
+## WORKSPACE-02-RELATIVE-SUBMODULE-LINKS
+
+Use relative URLs for all three parent submodules so GitHub and Bitbucket
+clones resolve their same-host child repositories. Preserve exact child pins
+and the canonical bootstrap lock identity. Keep direct web links for both
+hosts in README because Bitbucket does not render relative gitlinks as links.
+No child checkout, branch or initialization changes.
+
 ## WORKSPACE-02-MAC-LINUX-CONSOLIDATION-20261017
 
 Preserve Linux bootstrap source; import exact Mac VS Code settings and legacy
