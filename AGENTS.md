@@ -12,3 +12,16 @@ Plans/status/checks do not install tools. Actual installs, retained qualificatio
 master promotion and publication require their explicit user request.
 Do not claim unpublished, uncommitted or ignored work is backed up by this Git
 repository. Preserve it separately; never delete it as part of bootstrapping.
+
+
+## Market Games archived local recovery
+
+When resuming Market Games, read
+`/Users/alokgarg/project-backups/market_games/RESUME.txt` first. Its ignored
+recovery data was moved to
+`/Users/alokgarg/project-backups/market_games/local-recovery` to protect it from
+checkout deletion. Original source/build path: `~/market_lab/market_games`.
+Source updates come from `git@bitbucket.org:gargacious/market_lab_games.git`,
+branch `master`; GitHub mirror uses the same owner/repository. Preserve both
+recovery directories. Restore only after reviewing their RESTORE.txt instructions
+and current source/build state; do not overwrite newer work with old checkpoints.

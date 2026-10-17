@@ -23,3 +23,12 @@
 /tools/iverilog-13.0/*
 !/tools/iverilog-13.0/install.py
 !/tools/iverilog-13.0/README.txt
+
+# Explicit additional workspace source and lazy child checkouts.
+!/protocol_lab
+!/market_games
+!/repos.txt
+!/.vscode
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/c_cpp_properties.json

@@ -1,3 +1,17 @@
+## WORKSPACE-02-MAC-LINUX-CONSOLIDATION-20261017
+
+Preserve Linux bootstrap source; import exact Mac VS Code settings and legacy
+repo inventory; retain Games recovery location guidance. Register Protocol Lab
+and Games as lazy submodules. Select cleaned published integration master
+77dad77f and matching lock; component pins stay integration-owned. Old standalone
+FPGA stays in market_lab_old. Preserve retired history outside Git with verified
+backup, and keep both Games recovery directories outside Git. Do not restore
+old source checkpoints, initialize children, install tools or claim qualification.
+Run the focused bootstrap fixtures and parent source-selection check.
+Verification on Mac: 12/12 source-only fixtures passed; parent bootstrap check
+passed with all three children uninitialized. No build, tool installation,
+retained qualification or publication was performed.
+
 ## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - development source backup2026-10-17
 
 Bitbucket independently confirms integration91f4975b and its five changed

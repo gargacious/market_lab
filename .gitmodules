@@ -1,3 +1,12 @@
 [submodule "market-integration"]
 	path = market-integration
 	url = git@bitbucket.org:gargacious/market-integration.git
+
+[submodule "protocol_lab"]
+	path = protocol_lab
+	url = ../protocol_lab.git
+	branch = master
+[submodule "market_games"]
+	path = market_games
+	url = ../market_lab_games.git
+	branch = master

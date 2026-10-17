@@ -6,20 +6,51 @@ plans and qualification. Existing development checkouts can deliberately be
 ahead of this published selection; status reports that difference without
 changing them.
 
-Origin is git@bitbucket.org:gargacious/market_lab.git. The parent feature
-codex/workspace-bootstrap-20261017 selects integration91f4975b as a development
-backup. Integration and its five changed providers are independently backed up
-on codex/workspace-backup-20261017 in their own Bitbucket repositories. The
-published integration baseline remains8b13352f; no master is advanced.
-This source snapshot is not full Linux qualification or native Mac acceptance.
-For a NEW checkout only, after repository access and publication are confirmed:
+Origin is git@bitbucket.org:gargacious/market_lab.git; the GitHub mirror remote
+is named `github`. This checkout combines the Linux bootstrap source with the
+Mac workspace editor settings, legacy `repos.txt` inventory and Games recovery
+location note. The original `~/market_lab_old` directory is unchanged.
 
-    git clone --branch codex/workspace-bootstrap-20261017 --recurse-submodules git@bitbucket.org:gargacious/market_lab.git market_lab
-    cd market_lab
-    python3 -B tooling/bootstrap.py status
-    python3 -B tooling/bootstrap.py check
-    python3 -B tooling/bootstrap.py plan --tool conan
-    python3 -B tooling/bootstrap.py plan --tool iverilog
+The integration selection is its cleaned, published master `77dad77f`. Earlier
+pre-cleanup commit IDs and workspace-backup branch notes below are historical.
+This parent does not establish a new qualification of integration or its leaves.
+
+Three independently versioned child repositories are registered:
+
+| Path | Repository | Selected commit |
+| --- | --- | --- |
+| `market-integration` | `gargacious/market-integration` | `77dad77f` |
+| `protocol_lab` | `gargacious/protocol_lab` | `45c6f10` |
+| `market_games` | `gargacious/market_lab_games` | `4e5fef5` |
+
+Children are intentionally not initialized by this consolidation. In a NEW
+checkout, initialize only the child you need; recursive integration checkout
+also downloads its independently pinned components:
+
+```sh
+git submodule update --init --recursive -- market-integration
+# Later, when resuming these separate projects:
+git submodule update --init -- protocol_lab market_games
+```
+
+The parent records exact commits. Fetching newer child master commits is a
+separate reviewed update to its gitlink, not an automatic consequence of pulling
+this parent. No standalone FPGA checkout belongs here; it is already owned by
+market-integration's submodule graph.
+
+The preserved VS Code C++ profile is Mac-specific and optional; Linux tooling
+continues to use the existing bootstrap/tool locks. `repos.txt` is a historical
+Mac inventory, not an authoritative replacement for `.gitmodules` or integration's
+component lock. Plans/status/checks install no tools and move no child checkouts.
+
+Local recovery archives are deliberately NOT committed:
+- Games: `~/project-backups/market_games/local-recovery`; see its sibling
+  `RESUME.txt` before restoring into the original `~/market_lab/market_games`.
+- Retired fin_tech Git history: verified copy at
+  `~/project-backups/market_lab/fin_tech-retired-all-refs-2026-10-14.bundle`.
+
+The latter is not a Games recovery archive. Neither archive is protected by
+pushing this parent. Do not put bundles, builds, caches or private inputs in Git.
 
 Do not run submodule update in an existing development workspace merely to
 satisfy an indexed snapshot pointer. Inspect status and preserve work first.

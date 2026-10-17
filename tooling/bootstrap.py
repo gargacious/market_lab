@@ -10,12 +10,15 @@ import re
 import subprocess
 import sys
 
+SUBMODULE_PATHS = frozenset({"market-integration", "protocol_lab", "market_games"})
+
 TRACKED_FILES = frozenset({
     ".gitignore", ".gitattributes", ".gitmodules", "AGENTS.md", "README.md", "TASKS.md",
     "tooling/__init__.py", "tooling/bootstrap.py", "tooling/tool-lock.json",
     "tooling/tests/bootstrap_tests.py", "tools/iverilog/bootstrap.py",
-    "market-integration", "tools/iverilog-13.0/install.py", "tools/iverilog-13.0/README.txt",
-})
+    "tools/iverilog-13.0/install.py", "tools/iverilog-13.0/README.txt",
+    "repos.txt", ".vscode/settings.json", ".vscode/c_cpp_properties.json",
+}) | SUBMODULE_PATHS
 
 
 def safe_path(root: Path, name: str) -> Path:
@@ -120,7 +123,7 @@ def status(root: Path, lock: dict) -> dict:
             indexed_commit = fields[1]
     tracked_text = git(root, "ls-files", "-z")
     tracked = set(tracked_text.split("\0")) - {""} if tracked_text is not None else set()
-    missing = sorted(name for name in TRACKED_FILES - {selected["path"]} if not (root / name).is_file())
+    missing = sorted(name for name in TRACKED_FILES - SUBMODULE_PATHS if not (root / name).is_file())
     return {
         "format": "market-lab-workspace-status-v1",
         "root": str(root),

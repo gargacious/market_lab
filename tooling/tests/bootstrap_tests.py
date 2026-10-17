@@ -34,7 +34,7 @@ class BootstrapTests(unittest.TestCase):
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name) / "workspace"
         self.root.mkdir()
-        for name in bootstrap.TRACKED_FILES - {"market-integration"}:
+        for name in bootstrap.TRACKED_FILES - bootstrap.SUBMODULE_PATHS:
             target = self.root / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(SOURCE / name, target)
@@ -97,10 +97,10 @@ class BootstrapTests(unittest.TestCase):
         development = git(child, "rev-parse", "HEAD")
         (child / "source.txt").write_text("uncommitted", encoding="utf-8")
         lock = bootstrap.load_lock(self.root)
-        lock["integration"]["published_commit"] = published
+        lock["integration"].update(published_commit=published, selected_commit=published, selection_kind="published")
         (self.root / "tooling/tool-lock.json").write_text(json.dumps(lock), encoding="utf-8")
         self.init_git(self.root)
-        git(self.root, "add", *sorted(bootstrap.TRACKED_FILES - {"market-integration"}))
+        git(self.root, "add", *sorted(bootstrap.TRACKED_FILES - bootstrap.SUBMODULE_PATHS))
         git(self.root, "update-index", "--add", "--cacheinfo", "160000," + published + ",market-integration")
         git(self.root, "commit", "-m", "fixture workspace")
         git_directory = (child / ".git").resolve()
@@ -199,9 +199,20 @@ class BootstrapTests(unittest.TestCase):
                 module.main()
 
 
+    def test_optional_children_remain_lazy_and_are_allowed_gitlinks(self) -> None:
+        self.init_git(self.root)
+        git(self.root, "add", *sorted(bootstrap.TRACKED_FILES - bootstrap.SUBMODULE_PATHS))
+        for name in ("protocol_lab", "market_games"):
+            git(self.root, "update-index", "--add", "--cacheinfo", "160000," + "1" * 40 + "," + name)
+        observed = bootstrap.status(self.root, bootstrap.load_lock(self.root))
+        self.assertEqual(observed["missing_setup_sources"], [])
+        self.assertEqual(observed["unexpected_tracked_paths"], [])
+        self.assertFalse((self.root / "protocol_lab").exists())
+        self.assertFalse((self.root / "market_games").exists())
+
     def test_uninitialized_child_cannot_inherit_parent_head(self) -> None:
         self.init_git(self.root)
-        git(self.root, "add", *sorted(bootstrap.TRACKED_FILES - {"market-integration"}))
+        git(self.root, "add", *sorted(bootstrap.TRACKED_FILES - bootstrap.SUBMODULE_PATHS))
         git(self.root, "commit", "-m", "fixture parent only")
         (self.root / "market-integration").mkdir()
         result = bootstrap.status(self.root, bootstrap.load_lock(self.root))
