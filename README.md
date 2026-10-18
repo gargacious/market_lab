@@ -11,7 +11,7 @@ is named `github`. This checkout combines the Linux bootstrap source with the
 Mac workspace editor settings, legacy `repos.txt` inventory and Games recovery
 location note. The original `~/market_lab_old` directory is unchanged.
 
-The integration selection is its cleaned, published master `77dad77f`. Earlier
+The integration selection is its cleaned, published master `209557d6`. Earlier
 pre-cleanup commit IDs and workspace-backup branch notes below are historical.
 This parent does not establish a new qualification of integration or its leaves.
 
@@ -19,7 +19,7 @@ Three independently versioned child repositories are registered:
 
 | Path | Repository | Selected commit |
 | --- | --- | --- |
-| `market-integration` | [Bitbucket](https://bitbucket.org/gargacious/market-integration/src/master/) / [GitHub](https://github.com/gargacious/market-integration/tree/master) | `77dad77f` |
+| `market-integration` | [Bitbucket](https://bitbucket.org/gargacious/market-integration/src/master/) / [GitHub](https://github.com/gargacious/market-integration/tree/master) | `209557d6` |
 | `protocol_lab` | [Bitbucket](https://bitbucket.org/gargacious/protocol_lab/src/master/) / [GitHub](https://github.com/gargacious/protocol_lab/tree/master) | `45c6f10` |
 | `market_games` | [Bitbucket](https://bitbucket.org/gargacious/market_lab_games/src/master/) / [GitHub](https://github.com/gargacious/market_lab_games/tree/master) | `4e5fef5` |
 

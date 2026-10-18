@@ -90,3 +90,13 @@ The user selected git@bitbucket.org:gargacious/market_lab.git; origin is
 configured and read access is confirmed. Initial bootstrap feature4047db63 is
 published. The earlier hyphen-named URL was incorrect. No recovery or backup of
 ignored/uncommitted work or later unpublished development is claimed.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - qualified publication selection 2026-10-18
+
+Select independently verified Bitbucket integration master 209557d643947d1302f969e7a210a4bd3a29d5e6
+after its configured Linux provider and integration suites passed. Windows and
+Linux integration source masters match this commit; native Mac verification is
+pending. Update only the parent gitlink, explicit bootstrap selection and status.
+Provider selection and retained qualification remain integration-owned. The
+source-only bootstrap check passed. No child checkout, tool installation,
+private input, ignored artifact or recovery archive was moved or deleted.
