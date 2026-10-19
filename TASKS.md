@@ -100,3 +100,13 @@ pending. Update only the parent gitlink, explicit bootstrap selection and status
 Provider selection and retained qualification remain integration-owned. The
 source-only bootstrap check passed. No child checkout, tool installation,
 private input, ignored artifact or recovery archive was moved or deleted.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - qualified local selection 2026-10-20
+
+Select integration b844212a174b764956be43042c41b68cc970a5da after the canonical Linux split build,
+retained evidence verification, all configured provider suites, Web tests and
+integration suite passed. Windows and Linux local source masters match.
+The published baseline remains 209557d643947d1302f969e7a210a4bd3a29d5e6; no remote publication
+or external backup is claimed. Select the existing development_backup metadata
+kind only to distinguish this unpublished local pin. Preserve private inputs,
+credentials, uncommitted work, stashes, current build and recovery archives.
