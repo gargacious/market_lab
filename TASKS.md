@@ -110,3 +110,12 @@ The published baseline remains 209557d643947d1302f969e7a210a4bd3a29d5e6; no remo
 or external backup is claimed. Select the existing development_backup metadata
 kind only to distinguish this unpublished local pin. Preserve private inputs,
 credentials, uncommitted work, stashes, current build and recovery archives.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - verified Bitbucket publication 2026-10-20
+
+After explicit user authorization, publish the 13 changed provider masters first
+and verify Bitbucket integration master b844212a174b764956be43042c41b68cc970a5da.
+Promote the existing selected integration pin from unpublished local metadata
+to the verified published baseline. Linux validation and local source selection
+are unchanged. The separate Games remote is one commit ahead of its local
+master with no unique local commits; leave its remote and existing pin untouched.
