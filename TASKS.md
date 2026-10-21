@@ -132,3 +132,19 @@ Windows and Linux integration local masters match this qualified commit.
 Update only this parent gitlink, published bootstrap lock and status; preserve
 other child selections, private inputs, credentials, current evidence and builds.
 Native Mac verification remains user-run after publication.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - documentation publication 2026-10-21
+
+Select verified Bitbucket integration master a6105bf135612deb8ab49a127e4c26b10311d4a2
+after the user-authorized documentation reconciliation. Ledger documentation
+master b74c4dcc7003e7f952b0d9940125760e9a30e506 is published first. Integration's
+existing Ledger gitlink/lock selection d3086ddb is intentionally unchanged:
+its ordinary submodule checkout remains pinned while its master contains the
+historical notes. The documentation commits retain the original branch histories.
+
+Only documentation and this parent's selected gitlink/lock/status changed.
+The last actual retained Linux full-suite qualification remains exactly
+93fed61d9b18cf0a597ef9a85c014b8d8df7b9be. No evidence is regenerated, qualified
+ref advanced, compiler/test result relabelled or new qualification claimed.
+Original receipts, installed inputs, private data, uncommitted working copies,
+other workspace pins and existing build outputs remain preserved.
