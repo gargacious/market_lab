@@ -119,3 +119,16 @@ Promote the existing selected integration pin from unpublished local metadata
 to the verified published baseline. Linux validation and local source selection
 are unchanged. The separate Games remote is one commit ahead of its local
 master with no unique local commits; leave its remote and existing pin untouched.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - verified Bitbucket publication 2026-10-21
+
+After explicit user authorization, select Bitbucket integration master
+93fed61d9b18cf0a597ef9a85c014b8d8df7b9be after publishing its 14 changed
+component masters and independently verifying all 46 component master pins.
+The canonical Linux build, retained evidence, qualification and final integration
+suite passed; 742 integration cases executed successfully and 279 source-declared
+disabled cases remained disabled. The full Web suite passed 949 tests.
+Windows and Linux integration local masters match this qualified commit.
+Update only this parent gitlink, published bootstrap lock and status; preserve
+other child selections, private inputs, credentials, current evidence and builds.
+Native Mac verification remains user-run after publication.
