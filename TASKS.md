@@ -148,3 +148,22 @@ The last actual retained Linux full-suite qualification remains exactly
 ref advanced, compiler/test result relabelled or new qualification claimed.
 Original receipts, installed inputs, private data, uncommitted working copies,
 other workspace pins and existing build outputs remain preserved.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - Ledger documentation pin corrected 2026-10-21
+
+Select verified published integration89f36df3d29a019b9ae6f7e1b36327a64544c745.
+It now pins Ledgerb74c4dcc7003e7f952b0d9940125760e9a30e506 and exact tree
+6037ead2d276aad630ad24d36d010022eff2ea01 in both its gitlink and component lock.
+This supersedes the prior intentional d3086ddb pin hold: a normal recursive
+workspace pull/update now includes the reconciled Ledger historical document.
+Both hosts select the same actual Ledger checkout. Product code, public
+package identity and material hashes remain unchanged; current-source selector
+metadata is aligned without relaxing validation or rewriting bootstrap history.
+
+User explicitly requests publication without another retained-evidence cycle.
+The last actual qualified ref remains93fed61d9b18cf0a597ef9a85c014b8d8df7b9be.
+Retained receipts and their original lock/source hashes are preserved; full
+retained-receipt validation remains pending for a later explicitly requested
+qualification. Source-only selection checks pass on both hosts; no new build,
+suite run, qualification, financial permission or evidence generation is claimed.
+Preserve other workspace pins, private inputs, uncommitted work and build outputs.

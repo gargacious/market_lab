@@ -3,8 +3,8 @@
   "integration": {
     "path": "market-integration",
     "url": "git@bitbucket.org:gargacious/market-integration.git",
-    "published_commit": "a6105bf135612deb8ab49a127e4c26b10311d4a2",
-    "selected_commit": "a6105bf135612deb8ab49a127e4c26b10311d4a2",
+    "published_commit": "89f36df3d29a019b9ae6f7e1b36327a64544c745",
+    "selected_commit": "89f36df3d29a019b9ae6f7e1b36327a64544c745",
     "selection_kind": "published"
   },
   "tools": {
