@@ -167,3 +167,17 @@ retained-receipt validation remains pending for a later explicitly requested
 qualification. Source-only selection checks pass on both hosts; no new build,
 suite run, qualification, financial permission or evidence generation is claimed.
 Preserve other workspace pins, private inputs, uncommitted work and build outputs.
+
+## WORKSPACE-01-RECOVERABLE-BOOTSTRAP-R1 - local Linux validation handoff 2026-10-25
+
+Select integration4c6ec7173879407ac748026acfa9c095feccc229 locally on both
+hosts. Its actual Linux full-suite checkpoint covers302 commits:194 provider/
+package CTest suites, Web1192 tests, and Root725 passed with30 declared NSE-input
+skips and279 disabled entries. Retained evidence generation/verification and
+strict changed-driver Clang checks passed; Mac/device/hosted acceptance remains
+separate. Source and all46 component masters are aligned and preserved.
+
+This parent updates only its child gitlink, selected source lock and status.
+Selection stays development_backup; published_commit remains89f36df3d29a019b9ae6f7e1b36327a64544c745.
+No remotes are pushed. Required history inputs, credentials, ignored artifacts
+and uncommitted work remain preserved; this Git pointer does not back them up.
