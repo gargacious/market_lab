@@ -3,9 +3,9 @@
   "integration": {
     "path": "market-integration",
     "url": "git@bitbucket.org:gargacious/market-integration.git",
-    "published_commit": "89f36df3d29a019b9ae6f7e1b36327a64544c745",
+    "published_commit": "4c6ec7173879407ac748026acfa9c095feccc229",
     "selected_commit": "4c6ec7173879407ac748026acfa9c095feccc229",
-    "selection_kind": "development_backup"
+    "selection_kind": "published"
   },
   "tools": {
     "iverilog": {
