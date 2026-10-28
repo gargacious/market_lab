@@ -1,3 +1,11 @@
+## WORKSPACE-02 - published integration handoff 2026-10-29
+
+Record integration 08321832 as published after its six changed component masters
+and integration master were independently confirmed on Bitbucket. The parent
+gitlink already selects this exact tested commit; update the lock's published
+identity and classification without moving child checkouts or private inputs.
+Mac verification remains owned by integration's tracked Mac checklist.
+
 ## WORKSPACE-02-RELATIVE-SUBMODULE-LINKS
 
 Use relative URLs for all three parent submodules so GitHub and Bitbucket
