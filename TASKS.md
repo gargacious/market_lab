@@ -189,3 +189,10 @@ Published the 15 changed component masters, then qualified integration master
 parent gitlink already selects this exact commit; mark its lock as published.
 Linux configured provider, Web and integration suites passed at that identity.
 Native Mac verification remains pending; follow the tracked Mac checklist.
+
+## WORKSPACE-02-MAC-LINUX-CONSOLIDATION-20261017 - qualified local selection
+
+Select integration 08321832 after Linux evidence verification and the final
+configured suite: 729 passed, 279 disabled, 30 skipped, zero failures. Provider
+suites were reused only with identical pins, lock and build recipes. The
+published baseline remains 5ae9ea88; no new remote-backup/publication claim.
