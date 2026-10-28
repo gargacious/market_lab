@@ -1,3 +1,13 @@
+## WORKSPACE-02 - Mac portability publication 2026-10-29
+
+Publish core-party 7e60cca and integration cf568773 after the native Mac
+build-only boundary, installed package-integrity check, 45-policy runner suite
+and all 19 currently available Mac advisory checks passed. Ten external,
+device or explicit opt-in checks remain honestly pending. Retained Linux
+qualification evidence was not regenerated. Select the exact published
+integration commit in the parent gitlink and bootstrap lock without moving
+the other lazy child selections or private history inputs.
+
 ## WORKSPACE-02 - published integration handoff 2026-10-29
 
 Record integration 08321832 as published after its six changed component masters
